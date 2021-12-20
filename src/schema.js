@@ -2,6 +2,36 @@ const { gql } = require('apollo-server');
 
 const typeDefs = gql`
   # Your schema will go here
+  type Group {
+    id: ID!
+    name: String!
+  }
+  type Category {
+    id: ID!
+    name: String!
+  }
+  type Seller {
+    id: ID!
+    name: String!
+  }
+  type Product {
+    id: ID!
+    name: String!
+    description: String
+    group: Group
+    categories: [Category]
+    prices: [Price]
+  }
+  input ProductInput {
+    name: String
+    description: String
+  }
+  type Price {
+    seller: Seller
+    price: Float
+    stock: Int
+  }
+
   type Launch {
     id: ID!
     site: String
@@ -49,7 +79,16 @@ const typeDefs = gql`
     bookTrips(launchIds: [ID]!): TripUpdateResponse!
     cancelTrip(launchId: ID!): TripUpdateResponse!
     login(email: String): User
-  }  
+
+    createProduct(input: ProductInput): GenericResponse
+    updateProduct(productID: ID!, input: ProductInput): GenericResponse
+    deleteProduct(productID: ID!): GenericResponse
+    addStock(productID: ID!, sellerID: ID!, price: Float!, stock: Int!): GenericResponse
+  }
+  type GenericResponse {
+    success: String
+    message: String
+  }
   type TripUpdateResponse {
     success: String
     message: String

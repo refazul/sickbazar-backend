@@ -76,6 +76,27 @@ module.exports = {
                 launches,
             };
         },
+        createProduct: async (_, { input }, { dataSources }) => {
+            const product = await dataSources.productAPI.createProduct({ name, description } = input);
+            return {
+                success: product ? "yes" : "no",
+                message: product ? 'product created successfully' : 'error creating product'
+            };
+        },
+        updateProduct: async (_, { id, input }, { dataSources }) => {
+            const product = await dataSources.productAPI.updateProduct(id, { name, description } = input);
+            return {
+                success: product ? "yes" : "no",
+                message: product ? 'product updated successfully' : 'error updating product'
+            };
+        },
+        deleteProduct: async (_, { id }, { dataSources }) => {
+            const response = await dataSources.productAPI.deleteProduct(id);
+            return {
+                success: response ? "yes" : "no",
+                message: response ? `${response.deletedCount} product(s) deleted successfully` : 'error deleting product'
+            };
+        },
         cancelTrip: async (_, { launchId }, { dataSources }) => {
             const result = await dataSources.userAPI.cancelTrip({ launchId });
 

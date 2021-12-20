@@ -43,6 +43,10 @@ module.exports.createStore = () => {
         launchId: Number,
         userId: String
     })
+    ProductSchema = mongoose.model('Product', {
+        name: String,
+        description: String
+    });
 
     const User = {
         findOrCreate: async ({ email }) => {
@@ -63,7 +67,7 @@ module.exports.createStore = () => {
             }
             return [trip];
         },
-        findAll: async({ userId }) => {
+        findAll: async ({ userId }) => {
             var res = await TripSchema.find({ userId }).exec();
             return res;
         },
@@ -72,6 +76,24 @@ module.exports.createStore = () => {
             return res.deletedCount > 0;
         }
     }
+    const Product = {
+        createProduct: async ({ name, description }) => {
+            var product = await ProductSchema.findOne({ name }).exec();
+            if (!product) {
+                var newProduct = new ProductSchema({ name, description });
+                product = await newProduct.save();
+            }
+            return product;
+        },
+        updateProduct: async (id, { name, description }) => {
+            var product = await ProductSchema.findOneAndUpdate({ id }, { name, description }).exec();
+            return product;
+        },
+        deleteProduct: async (id) => {
+            var resoponse = await ProductSchema.findOne({ id }).remove().exec();
+            return resoponse;
+        }
+    }
 
-    return { User, Trip }
+    return { User, Trip, Product }
 }
