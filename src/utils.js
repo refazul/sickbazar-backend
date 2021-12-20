@@ -82,15 +82,17 @@ module.exports.createStore = () => {
             if (!product) {
                 var newProduct = new ProductSchema({ name, description });
                 product = await newProduct.save();
+            } else {
+                product = await ProductSchema.findByIdAndUpdate(product.id, { name: name ? name : product.name, description: description ? description : product.description }).exec();
             }
             return product;
         },
         updateProduct: async (id, { name, description }) => {
-            var product = await ProductSchema.findOneAndUpdate({ id }, { name, description }).exec();
+            var product = await ProductSchema.findByIdAndUpdate(id, { name, description }).exec();
             return product;
         },
         deleteProduct: async (id) => {
-            var resoponse = await ProductSchema.findOne({ id }).remove().exec();
+            var resoponse = await ProductSchema.findByIdAndDelete(id).remove().exec();
             return resoponse;
         }
     }
