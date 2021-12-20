@@ -1,30 +1,18 @@
 const { paginateResults } = require('./utils');
+const { UserMutations, UserQueries } = require('./resolvers/user')
+const { LaunchMutations, LaunchQueries } = require('./resolvers/launch')
+const { ProductMutations, ProductQueries } = require('./resolvers/product')
 
 module.exports = {
     Query: {
-        launches: async (_, { pageSize = 20, after }, { dataSources }) => {
-            const allLaunches = await dataSources.launchAPI.getAllLaunches();
-            // we want these in reverse chronological order
-            allLaunches.reverse();
-            const launches = paginateResults({
-                after,
-                pageSize,
-                results: allLaunches
-            });
-            return {
-                launches,
-                cursor: launches.length ? launches[launches.length - 1].cursor : null,
-                // if the cursor at the end of the paginated results is the same as the
-                // last item in _all_ results, then there are no more results after this
-                hasMore: launches.length
-                    ? launches[launches.length - 1].cursor !==
-                    allLaunches[allLaunches.length - 1].cursor
-                    : false
-            };
-        },
-        launch: (_, { id }, { dataSources }) =>
-            dataSources.launchAPI.getLaunchById({ launchId: id }),
-        me: (_, __, { dataSources }) => dataSources.userAPI.findOrCreateUser()
+        ...UserQueries,
+        ...LaunchQueries,
+        ...ProductQueries,
+    },
+    Mutation: {
+        ...UserMutations,
+        ...LaunchMutations,
+        ...ProductMutations
     },
     Mission: {
         // The default size is 'LARGE' if not provided
@@ -49,69 +37,6 @@ module.exports = {
                     launchIds,
                 }) || []
             );
-        },
-    },
-    Mutation: {
-        login: async (_, { email }, { dataSources }) => {
-            const user = await dataSources.userAPI.findOrCreateUser({ email });
-            if (user) {
-                user.token = Buffer.from(email).toString('base64');
-                return user;
-            }
-        },
-        bookTrips: async (_, { launchIds }, { dataSources }) => {
-            const results = await dataSources.userAPI.bookTrips({ launchIds });
-            const launches = await dataSources.launchAPI.getLaunchesByIds({
-                launchIds,
-            });
-
-            return {
-                success: results && results.length === launchIds.length ? "yes" : "no",
-                message:
-                    results.length === launchIds.length
-                        ? 'trips booked successfully'
-                        : `the following launches couldn't be booked: ${launchIds.filter(
-                            id => !results.includes(id),
-                        )}`,
-                launches,
-            };
-        },
-        createProduct: async (_, { input }, { dataSources }) => {
-            const product = await dataSources.productAPI.createProduct({ name, description } = input);
-            return {
-                success: product ? "yes" : "no",
-                message: product ? 'product created successfully' : 'error creating product'
-            };
-        },
-        updateProduct: async (_, { productID, input }, { dataSources }) => {
-            const product = await dataSources.productAPI.updateProduct(productID, { name, description } = input);
-            return {
-                success: product ? "yes" : "no",
-                message: product ? 'product updated successfully' : 'error updating product'
-            };
-        },
-        deleteProduct: async (_, { productID }, { dataSources }) => {
-            const response = await dataSources.productAPI.deleteProduct(productID);
-            return {
-                success: response ? "yes" : "no",
-                message: response ? `${response.deletedCount} product(s) deleted successfully` : 'error deleting product'
-            };
-        },
-        cancelTrip: async (_, { launchId }, { dataSources }) => {
-            const result = await dataSources.userAPI.cancelTrip({ launchId });
-
-            if (!result)
-                return {
-                    success: "no",
-                    message: 'failed to cancel trip',
-                };
-
-            const launch = await dataSources.launchAPI.getLaunchById({ launchId });
-            return {
-                success: "yes",
-                message: 'trip cancelled',
-                launches: [launch],
-            };
         },
     },
 };
