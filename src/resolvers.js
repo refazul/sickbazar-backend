@@ -1,4 +1,3 @@
-const { paginateResults } = require('./utils');
 const { UserMutations, UserQueries } = require('./resolvers/user')
 const { LaunchMutations, LaunchQueries } = require('./resolvers/launch')
 const { ProductMutations, ProductQueries } = require('./resolvers/product')

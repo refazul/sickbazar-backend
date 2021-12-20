@@ -2,12 +2,9 @@ require('dotenv').config();
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const isEmail = require('isemail');
-const { createStore } = require('./utils');
+const { createStore } = require('./store');
 const resolvers = require('./resolvers');
-
-const LaunchAPI = require('./datasources/launch');
-const UserAPI = require('./datasources/user');
-const ProductAPI = require('./datasources/product');
+const { LaunchAPI, ProductAPI, UserAPI } = require('./datasources');
 
 const store = createStore();
 
