@@ -4,7 +4,8 @@ const typeDefs = gql`
   # Your schema will go here
   type Group {
     id: ID!
-    name: String!
+    title: String!
+    description: String
   }
   type Category {
     id: ID!
@@ -69,6 +70,7 @@ const typeDefs = gql`
     ): LaunchConnection!
     launch(id: ID!): Launch
     me: User
+    readGroup(groupID: ID!): Group
   }
   type LaunchConnection {
     cursor: String!
@@ -84,6 +86,14 @@ const typeDefs = gql`
     updateProduct(productID: ID!, input: ProductInput): GenericResponse
     deleteProduct(productID: ID!): GenericResponse
     addStock(productID: ID!, sellerID: ID!, price: Float!, stock: Int!): GenericResponse
+
+    createGroup(input: GenericInput): GenericResponse
+    updateGroup(groupID: ID!, input: GenericInput): GenericResponse
+    deleteGroup(groupID: ID!): GenericResponse
+  }
+  input GenericInput {
+    title: String
+    description: String
   }
   type GenericResponse {
     success: String

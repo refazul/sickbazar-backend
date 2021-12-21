@@ -1,17 +1,20 @@
 const { UserMutations, UserQueries } = require('./resolvers/user')
 const { LaunchMutations, LaunchQueries } = require('./resolvers/launch')
 const { ProductMutations, ProductQueries } = require('./resolvers/product')
+const { GroupMutations, GroupQueries } = require('./resolvers/group')
 
 module.exports = {
     Query: {
         ...UserQueries,
         ...LaunchQueries,
         ...ProductQueries,
+        ...GroupQueries
     },
     Mutation: {
         ...UserMutations,
         ...LaunchMutations,
-        ...ProductMutations
+        ...ProductMutations,
+        ...GroupMutations
     },
     Mission: {
         // The default size is 'LARGE' if not provided
