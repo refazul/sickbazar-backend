@@ -1,12 +1,11 @@
 const { gql } = require('apollo-server');
+const group = require('./schemas/group')
+const launch = require('./schemas/launch')
+const product = require('./schemas/product')
+const user = require('./schemas/user')
 
-const typeDefs = gql`
+const all = `
   # Your schema will go here
-  type Group {
-    id: ID!
-    title: String!
-    description: String
-  }
   type Category {
     id: ID!
     title: String!
@@ -15,83 +14,13 @@ const typeDefs = gql`
     id: ID!
     title: String!
   }
-  type Product {
-    id: ID!
-    title: String!
-    description: String
-    group: Group
-    categories: [Category]
-    prices: [Price]
-  }
-  input ProductInput {
-    title: String
-    description: String
-    groupID: ID
-  }
   type Price {
     seller: Seller
     price: Float
     stock: Int
   }
-
-  type Launch {
-    id: ID!
-    site: String
-    mission: Mission
-    rocket: Rocket
-    isBooked: Boolean!
-  }
-  type Rocket {
-    id: ID!
-    name: String
-    type: String
-  }
-  
-  type User {
-    id: ID!
-    email: String!
-    trips: [Launch]!
-    token: String
-  }
-  
-  type Mission {
-    name: String
-    missionPatch(size: PatchSize): String
-  }
-  
-  enum PatchSize {
-    SMALL
-    LARGE
-  }
-
-  type Query {
-    launches(
-      pageSize: Int
-      after: String
-    ): LaunchConnection!
-    launch(id: ID!): Launch
-    me: User
-    readGroup(groupID: ID!): Group
-  }
-  type LaunchConnection {
-    cursor: String!
-    hasMore: Boolean!
-    launches: [Launch]!
-  }
   type Mutation {
-    bookTrips(launchIds: [ID]!): TripUpdateResponse!
-    cancelTrip(launchId: ID!): TripUpdateResponse!
-    login(email: String): User
-
-    createProduct(input: ProductInput): GenericResponse
-    updateProduct(productID: ID!, input: ProductInput): GenericResponse
-    deleteProduct(productID: ID!): GenericResponse
-
     addStock(productID: ID!, sellerID: ID!, price: Float!, stock: Int!): GenericResponse
-
-    createGroup(input: GenericInput): GenericResponse
-    updateGroup(groupID: ID!, input: GenericInput): GenericResponse
-    deleteGroup(groupID: ID!): GenericResponse
   }
   input GenericInput {
     title: String
@@ -101,11 +30,13 @@ const typeDefs = gql`
     success: String
     message: String
   }
-  type TripUpdateResponse {
-    success: String
-    message: String
-    launches: [Launch]
-  }
-`;
+  
+`
+.concat(group)
+.concat(product)
+.concat(launch)
+.concat(user)
+
+const typeDefs = gql`${all}`
 
 module.exports = typeDefs;
