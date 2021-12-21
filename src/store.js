@@ -16,8 +16,9 @@ module.exports.createStore = () => {
         userId: String
     })
     ProductSchema = mongoose.model('Product', {
-        name: String,
-        description: String
+        title: String,
+        description: String,
+        groupID: String,
     });
     GroupSchema = mongoose.model('Group', {
         title: String,
@@ -53,18 +54,18 @@ module.exports.createStore = () => {
         }
     }
     const Product = {
-        createProduct: async ({ name, description }) => {
-            var product = await ProductSchema.findOne({ name }).exec();
+        createProduct: async ({ title, description, groupID }) => {
+            var product = await ProductSchema.findOne({ title }).exec();
             if (!product) {
-                var newProduct = new ProductSchema({ name, description });
+                var newProduct = new ProductSchema({ title, description, groupID });
                 product = await newProduct.save();
             } else {
-                product = await ProductSchema.findByIdAndUpdate(product.id, { name: name ? name : product.name, description: description ? description : product.description }).exec();
+                product = await ProductSchema.findByIdAndUpdate(product.id, { title, description, groupID }).exec();
             }
             return product;
         },
-        updateProduct: async (id, { name, description }) => {
-            var product = await ProductSchema.findByIdAndUpdate(id, { name, description }).exec();
+        updateProduct: async (id, { title, description, groupID }) => {
+            var product = await ProductSchema.findByIdAndUpdate(id, { title, description, groupID }).exec();
             return product;
         },
         deleteProduct: async (id) => {

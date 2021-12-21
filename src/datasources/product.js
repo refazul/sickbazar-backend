@@ -5,12 +5,12 @@ class ProductAPI extends DataSource {
         super();
         this.store = store;
     }
-    async createProduct({ name, description }) {
-        const product = await this.store.Product.createProduct({ name, description });
+    async createProduct({ title, description, groupID }) {
+        const product = await this.store.Product.createProduct({ title, description, groupID });
         return product;
     }
-    async updateProduct(id, { name, description }) {
-        const product = await this.store.Product.updateProduct(id, { name, description });
+    async updateProduct(id, { title, description, groupID }) {
+        const product = await this.store.Product.updateProduct(id, { title, description, groupID });
         return product;
     }
     async deleteProduct(id) {

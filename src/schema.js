@@ -9,23 +9,24 @@ const typeDefs = gql`
   }
   type Category {
     id: ID!
-    name: String!
+    title: String!
   }
   type Seller {
     id: ID!
-    name: String!
+    title: String!
   }
   type Product {
     id: ID!
-    name: String!
+    title: String!
     description: String
     group: Group
     categories: [Category]
     prices: [Price]
   }
   input ProductInput {
-    name: String
+    title: String
     description: String
+    groupID: ID
   }
   type Price {
     seller: Seller
@@ -85,6 +86,7 @@ const typeDefs = gql`
     createProduct(input: ProductInput): GenericResponse
     updateProduct(productID: ID!, input: ProductInput): GenericResponse
     deleteProduct(productID: ID!): GenericResponse
+
     addStock(productID: ID!, sellerID: ID!, price: Float!, stock: Int!): GenericResponse
 
     createGroup(input: GenericInput): GenericResponse
