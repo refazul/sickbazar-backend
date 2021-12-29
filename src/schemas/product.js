@@ -12,6 +12,9 @@ input ProductInput {
     description: String
     groupID: ID
 }
+type Query {
+    readProduct(productID: ID!): Product
+}
 type Mutation {
     createProduct(input: ProductInput): GenericResponse
     updateProduct(productID: ID!, input: ProductInput): GenericResponse

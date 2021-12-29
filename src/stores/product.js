@@ -17,6 +17,10 @@ module.exports = {
         }
         return product;
     },
+    readProduct: async (id) => {
+        const product = await ProductSchema.findOne({ id }).exec();
+        return product;
+    },
     updateProduct: async (id, { title, description, groupID }) => {
         var product = await ProductSchema.findByIdAndUpdate(id, { title, description, groupID }).exec();
         return product;

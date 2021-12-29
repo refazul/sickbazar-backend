@@ -23,6 +23,9 @@ module.exports = {
         },
     },
     ProductQueries: {
-
+        readProduct: async (_, { productID }, { dataSources }) => {
+            const product = await dataSources.productAPI.readProduct(productID);
+            return product;
+        }
     }
 }
