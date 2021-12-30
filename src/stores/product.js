@@ -18,7 +18,7 @@ module.exports = {
         return product;
     },
     readProduct: async (id) => {
-        const product = await ProductSchema.findOne({ id }).exec();
+        const product = await ProductSchema.findById(id).exec();
         return product;
     },
     readProducts: async (title) => {
