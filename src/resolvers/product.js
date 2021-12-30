@@ -26,6 +26,10 @@ module.exports = {
         readProduct: async (_, { productID }, { dataSources }) => {
             const product = await dataSources.productAPI.readProduct(productID);
             return product;
+        },
+        readProducts: async (_, { title }, { dataSources }) => {
+            const products = await dataSources.productAPI.readProducts(title);
+            return products;
         }
     }
 }

@@ -14,6 +14,7 @@ input ProductInput {
 }
 type Query {
     readProduct(productID: ID!): Product
+    readProducts(title: String!): [Product]
 }
 type Mutation {
     createProduct(input: ProductInput): GenericResponse

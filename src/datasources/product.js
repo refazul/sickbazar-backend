@@ -13,6 +13,10 @@ class ProductAPI extends DataSource {
         const product = await this.store.Product.readProduct(id);
         return product;
     }
+    async readProducts(title) {
+        const products = await this.store.Product.readProducts(title);
+        return products;
+    }
     async updateProduct(id, { title, description, groupID }) {
         const product = await this.store.Product.updateProduct(id, { title, description, groupID });
         return product;

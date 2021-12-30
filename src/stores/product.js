@@ -21,6 +21,12 @@ module.exports = {
         const product = await ProductSchema.findOne({ id }).exec();
         return product;
     },
+    readProducts: async (title) => {
+        const regexp = new RegExp(`${title}`, "gi");
+        const products = await ProductSchema.find({ title: regexp, }, 'title description', { skip: 0, limit: 5 }).exec();
+        //const product = await ProductSchema.find({ name: /john/i, age: { $gte: 18 } }, 'title description', { skip: 10, limit: 5 }).exec();
+        return products;
+    },
     updateProduct: async (id, { title, description, groupID }) => {
         var product = await ProductSchema.findByIdAndUpdate(id, { title, description, groupID }).exec();
         return product;
