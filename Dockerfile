@@ -10,3 +10,7 @@ CMD [ "node", "src/index.js" ]
 # docker build . -t refazul/sickbazar-backend
 # docker run -dit -p 4000:4000 --name sickbazar-backend --env-file .env refazul/sickbazar-backend
 # docker image prune
+# docker push refazul/sickbazar-backend
+
+# k delete -f k8s/apollo-graphql/deployment.yaml
+# k apply -f k8s/apollo-graphql/deployment.yaml
