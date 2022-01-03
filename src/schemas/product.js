@@ -10,6 +10,7 @@ type Product {
 input ProductInput {
     title: String
     description: String
+    image: String
     groupID: ID
 }
 type Query {
