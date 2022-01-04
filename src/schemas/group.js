@@ -4,8 +4,14 @@ type Group {
     title: String!
     description: String
 }
+input GroupInput {
+    title: String
+    description: String
+    image: String
+}
 type Query {
     readGroup(groupID: ID!): Group
+    readGroups(title: String!): [Group]
 }
 type Mutation {
     createGroup(input: GenericInput): GenericResponse

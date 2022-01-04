@@ -5,16 +5,20 @@ class GroupAPI extends DataSource {
         super();
         this.store = store;
     }
-    async createGroup({ title, description }) {
-        const group = await this.store.Group.createGroup({ title, description });
+    async createGroup(input) {
+        const group = await this.store.Group.createGroup(input);
         return group;
     }
     async readGroup(id) {
         const group = await this.store.Group.readGroup(id);
         return group;
     }
-    async updateGroup(id, { title, description }) {
-        const group = await this.store.Group.updateGroup(id, { title, description });
+    async readGroups(title) {
+        const groups = await this.store.Group.readGroups(title);
+        return groups;
+    }
+    async updateGroup(id, input) {
+        const group = await this.store.Group.updateGroup(id, input);
         return group;
     }
     async deleteGroup(id) {
