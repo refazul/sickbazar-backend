@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 GroupSchema = mongoose.model('Group', {
     title: String,
-    description: String
+    description: String,
+    image: String
 });
 
 module.exports = {
