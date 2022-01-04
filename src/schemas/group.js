@@ -14,8 +14,8 @@ type Query {
     readGroups(title: String!): [Group]
 }
 type Mutation {
-    createGroup(input: GenericInput): GenericResponse
-    updateGroup(groupID: ID!, input: GenericInput): GenericResponse
+    createGroup(input: GroupInput): GenericResponse
+    updateGroup(groupID: ID!, input: GroupInput): GenericResponse
     deleteGroup(groupID: ID!): GenericResponse
 }
 `;
