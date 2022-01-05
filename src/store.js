@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const User = require('./stores/user');
 const Product = require('./stores/product');
 const Group = require('./stores/group');
+const Category = require('./stores/category');
 const Trip = require('./stores/trip');
 
 module.exports.createStore = () => {
@@ -11,5 +12,5 @@ module.exports.createStore = () => {
         useUnifiedTopology: true
     });
 
-    return { User, Trip, Product, Group }
+    return { User, Trip, Product, Group, Category }
 }

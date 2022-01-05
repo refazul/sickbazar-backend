@@ -4,7 +4,7 @@ const typeDefs = require('./schema');
 const isEmail = require('isemail');
 const { createStore } = require('./store');
 const resolvers = require('./resolvers');
-const { LaunchAPI, ProductAPI, UserAPI, GroupAPI } = require('./datasources');
+const { LaunchAPI, ProductAPI, UserAPI, GroupAPI, CategoryAPI } = require('./datasources');
 
 const store = createStore();
 
@@ -25,7 +25,8 @@ const server = new ApolloServer({
         launchAPI: new LaunchAPI(),
         productAPI: new ProductAPI({ store }),
         userAPI: new UserAPI({ store }),
-        groupAPI: new GroupAPI({ store })
+        groupAPI: new GroupAPI({ store }),
+        categoryAPI: new CategoryAPI({ store }),
     })
 });
 

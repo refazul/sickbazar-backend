@@ -1,4 +1,5 @@
 const { gql } = require('apollo-server');
+const category = require('./schemas/category');
 const group = require('./schemas/group')
 const launch = require('./schemas/launch')
 const product = require('./schemas/product')
@@ -32,6 +33,7 @@ const all = `
   }
   
 `
+.concat(category)
 .concat(group)
 .concat(product)
 .concat(launch)
