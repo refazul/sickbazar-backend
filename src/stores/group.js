@@ -24,7 +24,7 @@ module.exports = {
     },
     readGroups: async (title) => {
         const regexp = new RegExp(`${title}`, "gi");
-        const groups = await GroupSchema.find({ title: regexp, }, 'title description', { skip: 0, limit: 5 }).exec();
+        const groups = await GroupSchema.find({ title: regexp, }, '', { skip: 0, limit: 5 }).exec();
         //const group = await GroupSchema.find({ name: /john/i, age: { $gte: 18 } }, 'title description', { skip: 10, limit: 5 }).exec();
         return groups;
     },

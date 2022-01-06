@@ -25,7 +25,7 @@ module.exports = {
     },
     readProducts: async (title) => {
         const regexp = new RegExp(`${title}`, "gi");
-        const products = await ProductSchema.find({ title: regexp, }, 'title description', { skip: 0, limit: 5 }).exec();
+        const products = await ProductSchema.find({ title: regexp, }, '', { skip: 0, limit: 5 }).exec();
         //const product = await ProductSchema.find({ name: /john/i, age: { $gte: 18 } }, 'title description', { skip: 10, limit: 5 }).exec();
         return products;
     },
