@@ -3,6 +3,7 @@ type Product {
     id: ID!
     title: String!
     description: String
+    image: String
     group: Group
     categories: [Category]
     prices: [Price]

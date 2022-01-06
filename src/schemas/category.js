@@ -3,6 +3,7 @@ type Category {
     id: ID!
     title: String!
     description: String
+    image: String
 }
 input CategoryInput {
     title: String

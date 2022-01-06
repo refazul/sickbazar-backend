@@ -3,6 +3,7 @@ type Group {
     id: ID!
     title: String!
     description: String
+    image: String
 }
 input GroupInput {
     title: String
