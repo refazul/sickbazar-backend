@@ -7,15 +7,15 @@ module.exports = {
                 message: category ? 'category created successfully' : 'error creating category'
             };
         },
-        updateCategory: async (_, { categoryID, input }, { dataSources }) => {
-            const category = await dataSources.categoryAPI.updateEntity(categoryID, input);
+        updateCategory: async (_, { entityID, input }, { dataSources }) => {
+            const category = await dataSources.categoryAPI.updateEntity(entityID, input);
             return {
                 success: category ? "yes" : "no",
                 message: category ? 'category updated successfully' : 'error updating category'
             };
         },
-        deleteCategory: async (_, { categoryID }, { dataSources }) => {
-            const response = await dataSources.categoryAPI.deleteEntity(categoryID);
+        deleteCategory: async (_, { entityID }, { dataSources }) => {
+            const response = await dataSources.categoryAPI.deleteEntity(entityID);
             return {
                 success: response ? "yes" : "no",
                 message: response ? `${response.deletedCount} category(s) deleted successfully` : 'error deleting category'
@@ -23,8 +23,8 @@ module.exports = {
         },
     },
     CategoryQueries: {
-        readCategory: async (_, { categoryID }, { dataSources }) => {
-            const category = await dataSources.categoryAPI.readEntity(categoryID);
+        readCategory: async (_, { entityID }, { dataSources }) => {
+            const category = await dataSources.categoryAPI.readEntity(entityID);
             return category;
         },
         readCategories: async (_, { title }, { dataSources }) => {

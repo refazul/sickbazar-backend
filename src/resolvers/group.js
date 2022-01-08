@@ -7,15 +7,15 @@ module.exports = {
                 message: group ? 'group created successfully' : 'error creating group'
             };
         },
-        updateGroup: async (_, { groupID, input }, { dataSources }) => {
-            const group = await dataSources.groupAPI.updateEntity(groupID, input);
+        updateGroup: async (_, { entityID, input }, { dataSources }) => {
+            const group = await dataSources.groupAPI.updateEntity(entityID, input);
             return {
                 success: group ? "yes" : "no",
                 message: group ? 'group updated successfully' : 'error updating group'
             };
         },
-        deleteGroup: async (_, { groupID }, { dataSources }) => {
-            const response = await dataSources.groupAPI.deleteEntity(groupID);
+        deleteGroup: async (_, { entityID }, { dataSources }) => {
+            const response = await dataSources.groupAPI.deleteEntity(entityID);
             return {
                 success: response ? "yes" : "no",
                 message: response ? `${response.deletedCount} group(s) deleted successfully` : 'error deleting group'
@@ -23,8 +23,8 @@ module.exports = {
         },
     },
     GroupQueries: {
-        readGroup: async (_, { groupID }, { dataSources }) => {
-            const group = await dataSources.groupAPI.readEntity(groupID);
+        readGroup: async (_, { entityID }, { dataSources }) => {
+            const group = await dataSources.groupAPI.readEntity(entityID);
             return group;
         },
         readGroups: async (_, { title }, { dataSources }) => {

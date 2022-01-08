@@ -7,15 +7,15 @@ module.exports = {
                 message: product ? 'product created successfully' : 'error creating product'
             };
         },
-        updateProduct: async (_, { productID, input }, { dataSources }) => {
-            const product = await dataSources.productAPI.updateEntity(productID, input);
+        updateProduct: async (_, { entityID, input }, { dataSources }) => {
+            const product = await dataSources.productAPI.updateEntity(entityID, input);
             return {
                 success: product ? "yes" : "no",
                 message: product ? 'product updated successfully' : 'error updating product'
             };
         },
-        deleteProduct: async (_, { productID }, { dataSources }) => {
-            const response = await dataSources.productAPI.deleteEntity(productID);
+        deleteProduct: async (_, { entityID }, { dataSources }) => {
+            const response = await dataSources.productAPI.deleteEntity(entityID);
             return {
                 success: response ? "yes" : "no",
                 message: response ? `${response.deletedCount} product(s) deleted successfully` : 'error deleting product'
@@ -23,8 +23,10 @@ module.exports = {
         },
     },
     ProductQueries: {
-        readProduct: async (_, { productID }, { dataSources }) => {
-            const product = await dataSources.productAPI.readEntity(productID);
+        readProduct: async (_, { entityID }, { dataSources }) => {
+            const product = await dataSources.productAPI.readEntity(entityID);
+            const group = await dataSources.groupAPI.readEntity(product.groupID);
+            product.group = group;
             return product;
         },
         readProducts: async (_, { title }, { dataSources }) => {
