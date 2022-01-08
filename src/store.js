@@ -63,11 +63,21 @@ module.exports.createStore = () => {
         image: String,
         groupID: String,
     });
+    AttributeSchema = mongoose.model('Attribute', {
+        title: String,
+        keyname: String,
+        description: String,
+        image: String,
+        groupID: String,
+        type: { type: String, enum: ['color', 'text', 'image'], default: 'text' },
+        options: Array
+    });
 
     const VendorStore = new Entity({ EntitySchema: VendorSchema });
     const GroupStore = new Entity({ EntitySchema: GroupSchema });
     const CategoryStore = new Entity({ EntitySchema: CategorySchema });
     const ProductStore = new Entity({ EntitySchema: ProductSchema });
+    const AttributeStore = new Entity({ EntitySchema: AttributeSchema });
 
-    return { VendorStore, GroupStore, CategoryStore, ProductStore }
+    return { VendorStore, GroupStore, CategoryStore, ProductStore, AttributeStore }
 }
