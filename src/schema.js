@@ -58,7 +58,8 @@ input Stock {
   unit: String
 }
 type Mutation {
-  addStock(entityID: ID!, stock: Stock, selector: JSON): GenericResponse
+  addStock(entityID: ID!, selector: JSON, stock: Stock): GenericResponse
+  reduceStock(entityID: ID!, selector: JSON, reduceObj: JSON): GenericResponse
 }
 
 `
