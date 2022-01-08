@@ -42,6 +42,11 @@ module.exports.createStore = () => {
         useUnifiedTopology: true
     });
 
+    VendorSchema = mongoose.model('Vendor', {
+        title: String,
+        description: String,
+        image: String
+    });
     GroupSchema = mongoose.model('Group', {
         title: String,
         description: String,
@@ -59,9 +64,10 @@ module.exports.createStore = () => {
         groupID: String,
     });
 
+    const VendorStore = new Entity({ EntitySchema: VendorSchema });
     const GroupStore = new Entity({ EntitySchema: GroupSchema });
     const CategoryStore = new Entity({ EntitySchema: CategorySchema });
     const ProductStore = new Entity({ EntitySchema: ProductSchema });
 
-    return { GroupStore, CategoryStore, ProductStore }
+    return { VendorStore, GroupStore, CategoryStore, ProductStore }
 }

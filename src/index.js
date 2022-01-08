@@ -7,7 +7,7 @@ const resolvers = require('./resolvers');
 const { EntityAPI } = require('./datasources');
 
 const store = createStore();
-const { GroupStore, CategoryStore, ProductStore } = store;
+const { VendorStore, GroupStore, CategoryStore, ProductStore } = store;
 
 const server = new ApolloServer({
     context: async ({ req }) => {
@@ -23,6 +23,7 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     dataSources: () => ({
+        vendorAPI: new EntityAPI({ EntityStore: VendorStore }),
         groupAPI: new EntityAPI({ EntityStore: GroupStore }),
         categoryAPI: new EntityAPI({ EntityStore: CategoryStore }),
         productAPI: new EntityAPI({ EntityStore: ProductStore }),

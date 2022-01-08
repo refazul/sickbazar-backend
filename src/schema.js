@@ -60,6 +60,7 @@ const all = `
   .concat(new Schema({ Entity: 'Group' }).crud_gql())
   .concat(new Schema({ Entity: 'Category' }).crud_gql())
   .concat(new Schema({ Entity: 'Product', EntityExtra: ProductEntityExtra, EntityInputExtra: ProductEntityInputExtra }).crud_gql())
+  .concat(new Schema({ Entity: 'Vendor'}).crud_gql())
 
 const typeDefs = gql`${all}`
 
