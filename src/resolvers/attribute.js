@@ -21,6 +21,15 @@ module.exports = {
                 message: response ? `${response.deletedCount} attribute(s) deleted successfully` : 'error deleting attribute'
             };
         },
+        addOption: async (_, { entityID, option }, { dataSources }) => {
+            const attribute = await dataSources.attributeAPI.readEntity(entityID);
+            attribute.options.push(option);
+            const response = await attribute.save();
+            return {
+                success: response ? "yes" : "no",
+                object: response
+            };
+        },
     },
     AttributeQueries: {
         readAttribute: async (_, { entityID }, { dataSources }) => {

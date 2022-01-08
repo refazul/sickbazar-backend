@@ -13,6 +13,7 @@ class Schema {
   crud_gql() {
     return `
     ${this.Extra}
+    scalar JSON
     type ${this.Entity} {
         id: ID!
         title: String!
@@ -42,22 +43,36 @@ class Schema {
 const ProductTypeExtra = `
   group: Group
   categories: [Category]
+  price: [JSON]
 `
 const ProductInputExtra = `
   groupID: ID
+`
+const ProductExtra = `
+input Stock {
+  vendorID: ID!
+  price: Float!
+  quantity: Float!
+  sku: String
+  image: String
+  unit: String
+}
+type Mutation {
+  addStock(entityID: ID!, stock: Stock, selector: JSON): GenericResponse
+}
+
 `
 //////////////////////////
 const AttributeTypeExtra = `
   keyname: String!
   group: Group
   type: AttributeType!
-  options: [AttributeOption]
+  options: [JSON]
 `
 const AttributeInputExtra = `
   keyname: String!
   groupID: ID
   type: AttributeType!
-  options: [AttributeOptionInput]
 `
 const AttributeExtra = `
   enum AttributeType {
@@ -65,17 +80,14 @@ const AttributeExtra = `
     text
     image
   }
-  type AttributeOption {
-    title: String
-    value: String
+  input AttributeOption {
+    title: String!
+    value: String!
     color: String
     image: String
   }
-  input AttributeOptionInput {
-    title: String
-    value: String
-    color: String
-    image: String
+  type Mutation {
+    addOption(entityID: ID!, option: AttributeOption): GenericResponse
   }
 `
 
@@ -93,7 +105,7 @@ const all = `
 `
   .concat(new Schema({ Entity: 'Group' }).crud_gql())
   .concat(new Schema({ Entity: 'Category' }).crud_gql())
-  .concat(new Schema({ Entity: 'Product', TypeExtra: ProductTypeExtra, InputExtra: ProductInputExtra }).crud_gql())
+  .concat(new Schema({ Entity: 'Product', TypeExtra: ProductTypeExtra, InputExtra: ProductInputExtra, Extra: ProductExtra }).crud_gql())
   .concat(new Schema({ Entity: 'Vendor' }).crud_gql())
   .concat(new Schema({ Entity: 'Attribute', TypeExtra: AttributeTypeExtra, InputExtra: AttributeInputExtra, Extra: AttributeExtra }).crud_gql())
 

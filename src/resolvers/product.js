@@ -21,6 +21,15 @@ module.exports = {
                 message: response ? `${response.deletedCount} product(s) deleted successfully` : 'error deleting product'
             };
         },
+        addStock: async (_, { entityID, selector, stock }, { dataSources }) => {
+            const product = await dataSources.productAPI.readEntity(entityID);
+            product.price.push({ selector, stock })
+            const response = await product.save();
+            return {
+                success: response ? "yes" : "no",
+                object: response
+            };
+        },
     },
     ProductQueries: {
         readProduct: async (_, { entityID }, { dataSources }) => {
