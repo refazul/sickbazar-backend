@@ -6,7 +6,6 @@ type Product {
     image: String
     group: Group
     categories: [Category]
-    prices: [Price]
 }
 input ProductInput {
     title: String

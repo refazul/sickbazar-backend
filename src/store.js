@@ -1,9 +1,39 @@
 const mongoose = require('mongoose');
-const User = require('./stores/user');
-const Product = require('./stores/product');
-const Group = require('./stores/group');
-const Category = require('./stores/category');
-const Trip = require('./stores/trip');
+
+class Entity {
+    constructor({ EntitySchema }) {
+        this.EntitySchema = EntitySchema;
+    }
+    async createEntity(input) {
+        const { title } = input;
+        var object = await this.EntitySchema.findOne({ title }).exec();
+        if (!object) {
+            var newEntity = new this.EntitySchema(input);
+            object = await newEntity.save();
+        } else {
+            object = await this.EntitySchema.findByIdAndUpdate(object.id, input).exec();
+        }
+        return object;
+    }
+    async readEntity(id) {
+        const object = await this.EntitySchema.findById(id).exec();
+        return object;
+    }
+    async readEntities(title) {
+        const regexp = new RegExp(`${title}`, "gi");
+        const objects = await this.EntitySchema.find({ title: regexp, }, '', { skip: 0, limit: 20 }).exec();
+        //const category = await EntitySchema.find({ name: /john/i, age: { $gte: 18 } }, 'title description', { skip: 10, limit: 5 }).exec();
+        return objects;
+    }
+    async updateEntity(id, input) {
+        var object = await this.EntitySchema.findByIdAndUpdate(id, input).exec();
+        return object;
+    }
+    async deleteEntity(id) {
+        var resoponse = await this.EntitySchema.findByIdAndDelete(id).remove().exec();
+        return resoponse;
+    }
+}
 
 module.exports.createStore = () => {
     mongoose.Promise = global.Promise;
@@ -12,5 +42,26 @@ module.exports.createStore = () => {
         useUnifiedTopology: true
     });
 
-    return { User, Trip, Product, Group, Category }
+    GroupSchema = mongoose.model('Group', {
+        title: String,
+        description: String,
+        image: String
+    });
+    CategorySchema = mongoose.model('Category', {
+        title: String,
+        description: String,
+        image: String
+    });
+    ProductSchema = mongoose.model('Product', {
+        title: String,
+        description: String,
+        image: String,
+        groupID: String,
+    });
+
+    const GroupStore = new Entity({ EntitySchema: GroupSchema });
+    const CategoryStore = new Entity({ EntitySchema: CategorySchema });
+    const ProductStore = new Entity({ EntitySchema: ProductSchema });
+
+    return { GroupStore, CategoryStore, ProductStore }
 }
