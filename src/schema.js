@@ -47,6 +47,7 @@ const ProductTypeExtra = `
 `
 const ProductInputExtra = `
   groupID: ID
+  categoryIDs: [ID]
 `
 const ProductExtra = `
 input Stock {

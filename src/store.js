@@ -62,6 +62,7 @@ module.exports.createStore = () => {
         description: String,
         image: String,
         groupID: String,
+        categoryIDs: [String],
         price: Array
     });
     AttributeSchema = mongoose.model('Attribute', {
