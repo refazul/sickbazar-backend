@@ -41,8 +41,8 @@ class Schema {
 }
 
 const ProductTypeExtra = `
-  group: Group
-  categories: [Category]
+  groupID: ID
+  categoryIDs: [ID]
   price: [JSON]
 `
 const ProductInputExtra = `
@@ -66,13 +66,13 @@ type Mutation {
 `
 //////////////////////////
 const AttributeTypeExtra = `
-  keyname: String!
+  name: String!
   group: Group
   type: AttributeType!
-  options: [JSON]
+  options: [AttributeOption]
 `
 const AttributeInputExtra = `
-  keyname: String!
+  name: String!
   groupID: ID
   type: AttributeType!
 `
@@ -82,14 +82,20 @@ const AttributeExtra = `
     text
     image
   }
-  input AttributeOption {
+  type AttributeOption {
+    title: String!
+    value: String!
+    color: String
+    image: String
+  }
+  input AttributeOptionInput {
     title: String!
     value: String!
     color: String
     image: String
   }
   type Mutation {
-    addOption(entityID: ID!, option: AttributeOption): GenericResponse
+    addOption(entityID: ID!, option: AttributeOptionInput): GenericResponse
   }
 `
 

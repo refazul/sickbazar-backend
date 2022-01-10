@@ -63,16 +63,34 @@ module.exports.createStore = () => {
         image: String,
         groupID: String,
         categoryIDs: [String],
-        price: Array
+        price: [{
+            selector: [{
+                name: String,
+                value: String
+            }],
+            vendors: [{
+                vendorID: String,
+                price: Number,
+                quantity: Number,
+                sku: String,
+                image: String,
+                unit: String
+            }]
+        }]
     });
     AttributeSchema = mongoose.model('Attribute', {
         title: String,
-        keyname: String,
+        name: String,
         description: String,
         image: String,
         groupID: String,
         type: { type: String, enum: ['color', 'text', 'image'], default: 'text' },
-        options: Array
+        options: [{
+            title: String,
+            value: String,
+            color: String,
+            image: String
+        }]
     });
 
     const VendorStore = new Entity({ EntitySchema: VendorSchema });
