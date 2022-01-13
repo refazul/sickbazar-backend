@@ -10,6 +10,7 @@ const store = createStore();
 const { VendorStore, GroupStore, CategoryStore, ProductStore, AttributeStore } = store;
 
 const server = new ApolloServer({
+    cors: true,
     context: async ({ req }) => {
         // simple auth check on every request
         const auth = req.headers && req.headers.authorization || '';
