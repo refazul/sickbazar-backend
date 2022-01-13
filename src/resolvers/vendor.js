@@ -3,6 +3,7 @@ module.exports = {
         createVendor: async (_, { input }, { dataSources }) => {
             const vendor = await dataSources.vendorAPI.createEntity(input);
             return {
+                entity: vendor,
                 success: vendor ? "yes" : "no",
                 message: vendor ? 'vendor created successfully' : 'error creating vendor'
             };
@@ -10,6 +11,7 @@ module.exports = {
         updateVendor: async (_, { entityID, input }, { dataSources }) => {
             const vendor = await dataSources.vendorAPI.updateEntity(entityID, input);
             return {
+                entity: vendor,
                 success: vendor ? "yes" : "no",
                 message: vendor ? 'vendor updated successfully' : 'error updating vendor'
             };

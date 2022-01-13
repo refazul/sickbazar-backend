@@ -106,6 +106,7 @@ const all = `
     description: String
   }
   type GenericResponse {
+    entity: JSON
     success: String
     message: String
   }

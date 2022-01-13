@@ -3,6 +3,7 @@ module.exports = {
         createAttribute: async (_, { input }, { dataSources }) => {
             const attribute = await dataSources.attributeAPI.createEntity(input);
             return {
+                entity: attribute,
                 success: attribute ? "yes" : "no",
                 message: attribute ? 'attribute created successfully' : 'error creating attribute'
             };
@@ -10,6 +11,7 @@ module.exports = {
         updateAttribute: async (_, { entityID, input }, { dataSources }) => {
             const attribute = await dataSources.attributeAPI.updateEntity(entityID, input);
             return {
+                entity: attribute,
                 success: attribute ? "yes" : "no",
                 message: attribute ? 'attribute updated successfully' : 'error updating attribute'
             };

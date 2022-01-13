@@ -12,6 +12,7 @@ module.exports = {
         createProduct: async (_, { input }, { dataSources }) => {
             const product = await dataSources.productAPI.createEntity(input);
             return {
+                entity: product,
                 success: product ? "yes" : "no",
                 message: product ? 'product created successfully' : 'error creating product'
             };
@@ -19,6 +20,7 @@ module.exports = {
         updateProduct: async (_, { entityID, input }, { dataSources }) => {
             const product = await dataSources.productAPI.updateEntity(entityID, input);
             return {
+                entity: product,
                 success: product ? "yes" : "no",
                 message: product ? 'product updated successfully' : 'error updating product'
             };

@@ -3,6 +3,7 @@ module.exports = {
         createCategory: async (_, { input }, { dataSources }) => {
             const category = await dataSources.categoryAPI.createEntity(input);
             return {
+                entity: category,
                 success: category ? "yes" : "no",
                 message: category ? 'category created successfully' : 'error creating category'
             };
@@ -10,6 +11,7 @@ module.exports = {
         updateCategory: async (_, { entityID, input }, { dataSources }) => {
             const category = await dataSources.categoryAPI.updateEntity(entityID, input);
             return {
+                entity: category,
                 success: category ? "yes" : "no",
                 message: category ? 'category updated successfully' : 'error updating category'
             };

@@ -3,6 +3,7 @@ module.exports = {
         createGroup: async (_, { input }, { dataSources }) => {
             const group = await dataSources.groupAPI.createEntity(input);
             return {
+                entity: group,
                 success: group ? "yes" : "no",
                 message: group ? 'group created successfully' : 'error creating group'
             };
@@ -10,6 +11,7 @@ module.exports = {
         updateGroup: async (_, { entityID, input }, { dataSources }) => {
             const group = await dataSources.groupAPI.updateEntity(entityID, input);
             return {
+                entity: group,
                 success: group ? "yes" : "no",
                 message: group ? 'group updated successfully' : 'error updating group'
             };
