@@ -86,9 +86,8 @@ module.exports.createStore = () => {
         groupID: String,
         type: { type: String, enum: ['color', 'text', 'image'], default: 'text' },
         options: [{
-            title: String,
-            value: String,
             color: String,
+            text: String,
             image: String
         }]
     });

@@ -75,6 +75,7 @@ const AttributeInputExtra = `
   name: String!
   groupID: ID
   type: AttributeType!
+  options: [AttributeOptionInput]
 `
 const AttributeExtra = `
   enum AttributeType {
@@ -83,15 +84,13 @@ const AttributeExtra = `
     image
   }
   type AttributeOption {
-    title: String!
-    value: String!
     color: String
+    text: String
     image: String
   }
   input AttributeOptionInput {
-    title: String!
-    value: String!
     color: String
+    text: String
     image: String
   }
   type Mutation {
