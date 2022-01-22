@@ -11,7 +11,7 @@ class Entity {
             var newEntity = new this.EntitySchema(input);
             object = await newEntity.save();
         } else {
-            object = await this.EntitySchema.findByIdAndUpdate(object.id, input).exec();
+            object = await this.EntitySchema.findByIdAndUpdate(object.id, input, { new: true }).exec();
         }
         return object;
     }
@@ -26,7 +26,8 @@ class Entity {
         return objects;
     }
     async updateEntity(id, input) {
-        var object = await this.EntitySchema.findByIdAndUpdate(id, input).exec();
+        var object = await this.EntitySchema.findByIdAndUpdate(id, input, { new: true }).exec();
+        console.log(object);
         return object;
     }
     async deleteEntity(id) {
