@@ -32,9 +32,9 @@ class Schema {
         read${this.pluralize()}(title: String!): [${this.Entity}]
     }
     type Mutation {
-        create${this.Entity}(input: ${this.Entity}Input): GenericResponse
-        update${this.Entity}(entityID: ID!, input: ${this.Entity}Input): GenericResponse
-        delete${this.Entity}(entityID: ID!): GenericResponse
+        create${this.Entity}(input: ${this.Entity}Input): ${this.Entity}
+        update${this.Entity}(entityID: ID!, input: ${this.Entity}Input): ${this.Entity}
+        delete${this.Entity}(entityID: ID!): ID!
     }
     `
   }

@@ -1,37 +1,22 @@
 module.exports = {
     GroupMutations: {
         createGroup: async (_, { input }, { dataSources }) => {
-            const group = await dataSources.groupAPI.createEntity(input);
-            return {
-                entity: group,
-                success: group ? "yes" : "no",
-                message: group ? 'group created successfully' : 'error creating group'
-            };
+            return await dataSources.groupAPI.createEntity(input);
         },
         updateGroup: async (_, { entityID, input }, { dataSources }) => {
-            const group = await dataSources.groupAPI.updateEntity(entityID, input);
-            return {
-                entity: group,
-                success: group ? "yes" : "no",
-                message: group ? 'group updated successfully' : 'error updating group'
-            };
+            return await dataSources.groupAPI.updateEntity(entityID, input);
         },
         deleteGroup: async (_, { entityID }, { dataSources }) => {
             const response = await dataSources.groupAPI.deleteEntity(entityID);
-            return {
-                success: response ? "yes" : "no",
-                message: response ? `${response.deletedCount} group(s) deleted successfully` : 'error deleting group'
-            };
+            return entityID;
         },
     },
     GroupQueries: {
         readGroup: async (_, { entityID }, { dataSources }) => {
-            const group = await dataSources.groupAPI.readEntity(entityID);
-            return group;
+            return await dataSources.groupAPI.readEntity(entityID);
         },
         readGroups: async (_, { title }, { dataSources }) => {
-            const groups = await dataSources.groupAPI.readEntities(title);
-            return groups;
+            return await dataSources.groupAPI.readEntities(title);
         }
     }
 }

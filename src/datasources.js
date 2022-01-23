@@ -6,24 +6,19 @@ class EntityAPI extends DataSource {
         this.store = EntityStore;
     }
     async createEntity(input) {
-        const category = await this.store.createEntity(input);
-        return category;
+        return await this.store.createEntity(input);
     }
     async readEntity(id) {
-        const category = await this.store.readEntity(id);
-        return category;
+        return await this.store.readEntity(id);
     }
     async readEntities(title) {
-        const categories = await this.store.readEntities(title);
-        return categories;
+        return await this.store.readEntities(title);
     }
     async updateEntity(id, input) {
-        const category = await this.store.updateEntity(id, input);
-        return category;
+        return await this.store.updateEntity(id, input);
     }
     async deleteEntity(id) {
-        const response = await this.store.deleteEntity(id);
-        return response;
+        return await this.store.deleteEntity(id);
     }
 }
 

@@ -16,23 +16,18 @@ class Entity {
         return object;
     }
     async readEntity(id) {
-        const object = await this.EntitySchema.findById(id).exec();
-        return object;
+        return await this.EntitySchema.findById(id).exec();
     }
     async readEntities(title) {
         const regexp = new RegExp(`${title}`, "gi");
-        const objects = await this.EntitySchema.find({ title: regexp, }, '', { skip: 0, limit: 20 }).exec();
+        return await this.EntitySchema.find({ title: regexp, }, '', { skip: 0, limit: 20 }).exec();
         //const category = await EntitySchema.find({ name: /john/i, age: { $gte: 18 } }, 'title description', { skip: 10, limit: 5 }).exec();
-        return objects;
     }
     async updateEntity(id, input) {
-        var object = await this.EntitySchema.findByIdAndUpdate(id, input, { new: true }).exec();
-        console.log(object);
-        return object;
+        return await this.EntitySchema.findByIdAndUpdate(id, input, { new: true }).exec();
     }
     async deleteEntity(id) {
-        var resoponse = await this.EntitySchema.findByIdAndDelete(id).remove().exec();
-        return resoponse;
+        return await this.EntitySchema.findByIdAndDelete(id).remove().exec();
     }
 }
 

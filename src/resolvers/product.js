@@ -10,27 +10,14 @@ function object_match(obj1, obj2) {
 module.exports = {
     ProductMutations: {
         createProduct: async (_, { input }, { dataSources }) => {
-            const product = await dataSources.productAPI.createEntity(input);
-            return {
-                entity: product,
-                success: product ? "yes" : "no",
-                message: product ? 'product created successfully' : 'error creating product'
-            };
+            return await dataSources.productAPI.createEntity(input);
         },
         updateProduct: async (_, { entityID, input }, { dataSources }) => {
-            const product = await dataSources.productAPI.updateEntity(entityID, input);
-            return {
-                entity: product,
-                success: product ? "yes" : "no",
-                message: product ? 'product updated successfully' : 'error updating product'
-            };
+            return await dataSources.productAPI.updateEntity(entityID, input);
         },
         deleteProduct: async (_, { entityID }, { dataSources }) => {
             const response = await dataSources.productAPI.deleteEntity(entityID);
-            return {
-                success: response ? "yes" : "no",
-                message: response ? `${response.deletedCount} product(s) deleted successfully` : 'error deleting product'
-            };
+            return entityID;
         },
         addStock: async (_, { entityID, selector, stock }, { dataSources }) => {
             const product = await dataSources.productAPI.readEntity(entityID);
@@ -69,8 +56,7 @@ module.exports = {
             return product;
         },
         readProducts: async (_, { title }, { dataSources }) => {
-            const products = await dataSources.productAPI.readEntities(title);
-            return products;
+            return await dataSources.productAPI.readEntities(title);
         }
     }
 }

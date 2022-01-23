@@ -1,37 +1,21 @@
 module.exports = {
     VendorMutations: {
         createVendor: async (_, { input }, { dataSources }) => {
-            const vendor = await dataSources.vendorAPI.createEntity(input);
-            return {
-                entity: vendor,
-                success: vendor ? "yes" : "no",
-                message: vendor ? 'vendor created successfully' : 'error creating vendor'
-            };
+            return await dataSources.vendorAPI.createEntity(input);
         },
         updateVendor: async (_, { entityID, input }, { dataSources }) => {
-            const vendor = await dataSources.vendorAPI.updateEntity(entityID, input);
-            return {
-                entity: vendor,
-                success: vendor ? "yes" : "no",
-                message: vendor ? 'vendor updated successfully' : 'error updating vendor'
-            };
+            return await dataSources.vendorAPI.updateEntity(entityID, input);
         },
         deleteVendor: async (_, { entityID }, { dataSources }) => {
-            const response = await dataSources.vendorAPI.deleteEntity(entityID);
-            return {
-                success: response ? "yes" : "no",
-                message: response ? `${response.deletedCount} vendor(s) deleted successfully` : 'error deleting vendor'
-            };
+            return await dataSources.vendorAPI.deleteEntity(entityID);
         },
     },
     VendorQueries: {
         readVendor: async (_, { entityID }, { dataSources }) => {
-            const vendor = await dataSources.vendorAPI.readEntity(entityID);
-            return vendor;
+            return await dataSources.vendorAPI.readEntity(entityID);
         },
         readVendors: async (_, { title }, { dataSources }) => {
-            const vendors = await dataSources.vendorAPI.readEntities(title);
-            return vendors;
+            return await dataSources.vendorAPI.readEntities(title);
         }
     }
 }
